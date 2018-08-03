@@ -60,11 +60,14 @@ export default {
     props: {
         seller: {
             type: Object
+        },
+        goods: {
+            type: Array
         }
     },
     data() {
         return {
-            goods: [{
+            data: [{
                 name: '',
                 type: -1,
                 foods: [{}]
@@ -136,16 +139,10 @@ export default {
         }
     },
     created() {
-        axios.get('/goods').then(res => {
-            if(res.data.type === 0) {
-                this.goods = res.data.data;
-
-                Vue.nextTick(() => {
-                    this._initScroll();
-                    this.calculateHeight();
-                });
-            }
-        })
+        Vue.nextTick(() => {
+            this._initScroll();
+            this.calculateHeight();
+        });
     }
 }
 </script>

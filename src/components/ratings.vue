@@ -41,26 +41,26 @@
 import axios from 'axios'
 import comment from './comment'
 import BScroll from 'better-scroll'
+import Vue from 'vue'
 
 export default {
     props: {
         seller: {
             type: Object
+        },
+        ratings: {
+            type: Array
         }
     },
     data() {
         return {
-            ratings: [{score: 0}]
         }
     },
     components: {
         'my-comment': comment
     },
     created() {
-        axios.get('/ratings').then(res => {
-            if(res.data.type === 0) {  // 获取数据成功
-                this.ratings = res.data.data;
-            }
+        Vue.nextTick(() => {
             new BScroll(this.$refs.ratings, {
                 click: true
             });

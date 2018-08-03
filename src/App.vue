@@ -2,17 +2,17 @@
   <div id="app">
     <v-header :seller="seller"></v-header>
     <div class="tab">
-      <div class="tab-item">
+      <div class="tab-item" @click="transDataType = 0">
         <router-link to="/goods">商品</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/ratings">评价</router-link>
+        <router-link to="/ratings" @click="transDataType = 1">评价</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="seller">商家</router-link>
+        <router-link to="seller" @click="transDataType = -1">商家</router-link>
       </div>
     </div>
-    <router-view :seller="seller"></router-view>
+    <router-view :goods="goods" :ratings="ratings" :seller="seller"></router-view>
   </div>
 </template>
 
@@ -25,6 +25,7 @@ export default {
   name: 'App',
   data() {
     return{
+      transDataType: 0,  //传给router-view的数据类型：goods(0),ratings(1),null(-1)
       seller: {
         avatar: '',
         name: '',
@@ -34,7 +35,15 @@ export default {
         supports: [],
         deliveryPrice: 4,
         minPrice: 20
-      }
+      },
+      goods: [{
+          name: '',
+          type: -1,
+          foods: [{}]
+      }],
+      ratings: [{
+        score: 0
+      }]
     }
   },
   components: {
@@ -44,6 +53,16 @@ export default {
     axios.get('/seller').then(res => {
       if(res.data.type === 0) {
         this.seller = res.data.data;
+      }
+    });
+    axios.get('/goods').then(res => {
+      if(res.data.type === 0) {
+        this.goods = res.data.data;
+      }
+    });
+    axios.get('/ratings').then(res => {
+      if(res.data.type === 0) {
+        this.ratings = res.data.data;
       }
     })
   }
