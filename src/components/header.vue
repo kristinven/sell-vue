@@ -17,12 +17,12 @@
                     <span class="description">{{seller.supports[0].description}}</span>
                 </div>
             </div>
-            <div class="num-wrapper" v-if="seller.supports.length > 0">
+            <div class="num-wrapper" v-if="seller.supports.length > 0" @click="showBulletin">
                 <span class="num">{{seller.supports.length}}个</span>
                 <span class="icon-keyboard_arrow_right"></span>
             </div>
         </div>
-        <div class="bulletin-wrapper">
+        <div class="bulletin-wrapper" @click="showBulletin">
             <span class="bulletin-icon bg-img"></span>
             <span class="bulletin">{{seller.bulletin}}</span>
             <span class="icon-keyboard_arrow_right"></span>
@@ -30,10 +30,13 @@
         <div class="background">
             <img :src="seller.avatar" alt="">
         </div>
+        <bulletin :seller="seller" @showBulletin="showBulletin" :showFlag="showFlag"></bulletin>
     </div>
 </template>
 
 <script>
+import bulletin from './bulletin'
+
 export default {
     props: {
         seller: {
@@ -42,7 +45,16 @@ export default {
     },
     data() {
         return {
-            classType: ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+            classType: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
+            showFlag: false
+        }
+    },
+    components: {
+        bulletin
+    },
+    methods: {
+        showBulletin() {
+            this.showFlag = !this.showFlag;
         }
     }
 }
@@ -166,10 +178,4 @@ export default {
             img 
                 width 100%
                 filter blur(10px)
-
-                                
-                
-
-
-
 </style>

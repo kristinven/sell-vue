@@ -126,7 +126,7 @@ export default {
     height 48px
     width 100%
     background #141d27
-    z-index 99
+    z-index 1
     .content
         display flex
         .cart-wrapper

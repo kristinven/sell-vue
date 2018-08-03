@@ -14,7 +14,7 @@ border-1px-top($color)
     display:block
     content:' '
     width:100%
-    bottom:0
+    top:0
     left:0
     border-top:1px solid $color
 border-1px-right($color)
@@ -27,6 +27,16 @@ border-1px-right($color)
     right:0
     top:0
     border-right:1px solid $color
+border-1px-middle($color)
+  position:relative
+  &:before
+    display:block
+    position:absolute
+    content:''
+    width:100%
+    left:0
+    top:50%
+    border-top:1px solid $color
 set-img($size)
   width: $size
   height: $size
